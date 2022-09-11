@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
-  <description>Aconex way</description>
   <rule ref="category/java/errorprone.xml/UnusedNullCheckInEquals">
     <priority>3</priority>
   </rule>

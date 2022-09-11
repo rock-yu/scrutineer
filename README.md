@@ -213,13 +213,12 @@ requires input streams to be in lexicographical (default) or numerical (indicate
 ElasticSearch
 =============
 
-Since Aconex uses ElasticSearch, Scrutineer supports ES out of the box, but it would not be difficult for others to integrate
-a Solr stream and wire something up. Happy to take Pull Requests!
+Scrutineer supports ES out of the box, but it would not be difficult for others to integrate a Solr stream and wire something up. Happy to take Pull Requests!
 
 What are the 'best practices' for using Scrutineer?
 ===================================================
 
-The authors of Scrutineer, Aconex, index content from a JDBC data source and index using ElasticSearch.  We do the following:
+The creator of Scrutineer, Aconex, index content from a JDBC data source and index using ElasticSearch.  We do the following:
 
 * In the database table of the object being indexed we add an Insert/Update trigger to populate a 'lastupdated' timestamp column as our Version property
 * When we index into ElasticSearch, we set the Version property of the item using the VersionType.EXTERNAL setting.  
