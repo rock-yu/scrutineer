@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>scrutineer2-pom</artifactId>
-        <groupId>com.aconex.scrutineer</groupId>
+        <groupId>au.com.oakware.openscrutineer</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -96,11 +96,11 @@
                     <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
                     <programs>
                         <program>
-                            <mainClass>com.aconex.scrutineer.ScrutineerCli</mainClass>
+                            <mainClass>au.com.oakware.openscrutineer.ScrutineerCli</mainClass>
                             <id>scrutineer</id>
                         </program>
                         <program>
-                            <mainClass>com.aconex.scrutineer.v2.ScrutineerCli2</mainClass>
+                            <mainClass>au.com.oakware.openscrutineer.v2.ScrutineerCli2</mainClass>
                             <id>scrutineer2</id>
                         </program>
                     </programs>

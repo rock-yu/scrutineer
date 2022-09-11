@@ -5,7 +5,7 @@
    Prevents OWASP Dependency checking picking up our Elasticsearch7 module as a "real" ES module
    and painting it as outdated/vulnerable
    ]]></notes>
-        <packageUrl regex="true">^pkg:maven/com\.aconex\.scrutineer/elasticsearch7@.*$</packageUrl>
+        <packageUrl regex="true">^pkg:maven/au\.com\.oakware\.openscrutineer/elasticsearch7@.*$</packageUrl>
         <cpe>cpe:/a:elastic:elasticsearch</cpe>
     </suppress>
     <suppress>
@@ -13,7 +13,7 @@
    Prevents OWASP Dependency checking picking up our Elasticsearch7 module as a "real" ES module
    and painting it as outdated/vulnerable
    ]]></notes>
-        <packageUrl regex="true">^pkg:maven/com\.aconex\.scrutineer/elasticsearch7@.*$</packageUrl>
+        <packageUrl regex="true">^pkg:maven/au\.com\.oakware\.openscrutineer/elasticsearch7@.*$</packageUrl>
         <cpe>cpe:/a:elasticsearch:elasticsearch</cpe>
     </suppress>
 </suppressions>

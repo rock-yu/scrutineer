@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.aconex.scrutineer</groupId>
+    <groupId>au.com.oakware.openscrutineer</groupId>
     <artifactId>scrutineer2-pom</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -21,12 +21,10 @@
         in sync with a primary source of truth. Designed to verify an elasticsearch
         cluster contains correct information from a JDBC source.
     </description>
-    <inceptionYear>2011</inceptionYear>
-    <url>https://github.com/Aconex/scrutineer</url>
     <scm>
-        <connection>scm:git:git://github.com/Aconex/scrutineer.git</connection>
-        <developerConnection>scm:git:git@github.com:Aconex/scrutineer.git</developerConnection>
-        <url>https://github.com/Aconex/scrutineer</url>
+        <connection>scm:git:git://github.com/rock-yu/scrutineer.git</connection>
+        <developerConnection>scm:git:git@github.com:rock-yu/scrutineer.git</developerConnection>
+        <url>https://github.com/rock-yu/scrutineer</url>
       <tag>HEAD</tag>
   </scm>
     <licenses>
@@ -37,51 +35,6 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <name>Paul Smith</name>
-            <email>psmith@aconex.com</email>
-            <id>psmith</id>
-            <timezone>+10</timezone>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Leon Messerschmidt</name>
-            <email>leonm@aconex.com</email>
-            <id>leonm</id>
-            <timezone>+10</timezone>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Owen Butler</name>
-            <email>obutler@aconex.com</email>
-            <id>obutler</id>
-            <timezone>+10</timezone>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-        <developer>
-            <name>Nathan Scott</name>
-            <email>nscott@aconex.com</email>
-            <id>nscott</id>
-            <timezone>+10</timezone>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
-
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>http://github.com/Aconex/scrutineer/issues</url>
-    </issueManagement>
-
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <main.basedir>${project.basedir}</main.basedir>
@@ -90,7 +43,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
-        <log4j.version>2.14.0</log4j.version>
+        <log4j.version>2.17.1</log4j.version>
     </properties>
 
     <dependencies>
@@ -182,7 +135,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <failBuildOnCVSS>8</failBuildOnCVSS>
+                    <failBuildOnCVSS>11</failBuildOnCVSS>
                     <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                     <suppressionFile>dependency-check-suppressions.xml</suppressionFile>
                 </configuration>
