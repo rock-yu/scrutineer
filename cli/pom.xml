@@ -96,10 +96,6 @@
                     <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
                     <programs>
                         <program>
-                            <mainClass>au.com.oakware.openscrutineer.ScrutineerCli</mainClass>
-                            <id>scrutineer</id>
-                        </program>
-                        <program>
                             <mainClass>au.com.oakware.openscrutineer.v2.ScrutineerCli2</mainClass>
                             <id>scrutineer2</id>
                         </program>
@@ -156,7 +152,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <copyright>Commercial</copyright>
+                            <copyright>OpenSource</copyright>
                             <group>Applications/Internet</group>
                             <packager>${user.name}</packager>
                             <prefix>${rpm.prefix}</prefix>

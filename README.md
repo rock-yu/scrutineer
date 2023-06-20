@@ -64,45 +64,10 @@ Scrutineer picks up that:
 * ID '5' was deleted from the database at some point, but ElasticSearch still has it in there
 * ID '6' is visible in ElasticSearch but appears to have the wrong version
 
-Running Scrutineer 
+Running Scrutineer with configuration files
 ==================
 
-### Deprecated, see below to migrate to `scrutineer2`
-
-The very first thing you'll need to do is get your JDBC Driver jar and place it in the 'lib' directory of the unpacked
-package.  We already have a JTDS driver in there if you're using SQL Server (that's just what we use).
-
-    bin/scrutineer \
-                --jdbcURL=jdbc:jtds:sqlserver://mydbhost/mydb  \
-                --jdbcDriverClass=net.sourceforge.jtds.jdbc.Driver \
-                --jdbcUser=itasecret \
-                --jdbcPassword=itsasecret   \
-                --sql="select id,version from myobjecttype order by cast(id as varchar(100))" \
-                --clusterName=mycluster \
-                --esHosts=localhost:9300 \
-                --indexName=myindex \
-                --query="_type:myobjecttype" \
-                --numeric
-
-*Note:* if you're weirded out about that '...cast(...)' then don't worry, we'll explain that shortly.
-
-* **jdbcURL** – Standard JDBC URL you would use for your app to connect to your database
-* **jdbcDriverClass** - Fully qualified class name of your JDBC Driver (don't forget to put your JDBC Driver jar in the lib directory as said above!)
-* **jdbcUser** - user account to access your JDBC Database
-* **jdbcPassword** -- password required for the user credentials
-* **sql** - The SQL used to generate a lexicographical stream of ID & Version values (in that column order)
-* **clusterName** - this is your ElasticSearch cluster name used to autodetect and connect to a node in your cluster
-* **esHosts** - csv set of seed ElasticSearch host:port pairs to use as part of discovery
-* **indexName** - the name of the index on your ElasticSearch cluster
-* **query** - A query_parser compatible search query that returns all documents in your ElasticSearch index relating to the SQL query you're using
-  Since it is common for an index to contain a type-per-db-table you can use the "_type:<type>" search query to filter for all values for that type.
-* **numeric** - use this if your query returns results numerically ordered 
-
-Running Scrutineer2 with configuration files
-==================
-
-We've introduced a new **scrutineer2** executable which reads configurations from two manifest files, from `scrutineer/target/appassembler`
-run:
+Run **scrutineer2** executable which reads configurations from two manifest files, from `scrutineer/target/appassembler`:
     
     bin/scrutineer \
                 --primary-config=example-jdbc.properties \
