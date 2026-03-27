@@ -73,8 +73,8 @@ public class JdbcStreamConnector extends AbstractIdAndVersionStreamConnector {
 
     private void validateDriverClass() {
         try {
-            Class.forName(getConfig().getDriverClass()).getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
+            Class.forName(getConfig().getDriverClass());
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

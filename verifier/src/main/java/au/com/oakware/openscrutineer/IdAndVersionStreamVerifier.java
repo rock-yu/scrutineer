@@ -33,14 +33,15 @@ public class IdAndVersionStreamVerifier {
             while (primaryItem != null && secondaryItem != null) {
                 idAndVersionStreamVerifierListener.onStreamComparison(primaryItem, secondaryItem);
 
-                if (primaryItem.equals(secondaryItem)) {
+                int comparison = primaryItem.compareTo(secondaryItem);
+                if (comparison == 0) {
                     primaryItem = verifiedNext(primaryIterator, primaryItem);
                     secondaryItem = next(secondaryIterator);
                 } else if (primaryItem.getId().equals(secondaryItem.getId())) {
                     idAndVersionStreamVerifierListener.onVersionMisMatch(primaryItem, secondaryItem);
                     primaryItem = verifiedNext(primaryIterator, primaryItem);
                     secondaryItem = next(secondaryIterator);
-                } else if (primaryItem.compareTo(secondaryItem) < 0) {
+                } else if (comparison < 0) {
                     idAndVersionStreamVerifierListener.onMissingInSecondaryStream(primaryItem);
                     primaryItem = verifiedNext(primaryIterator, primaryItem);
                 } else {

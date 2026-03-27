@@ -57,18 +57,37 @@ public class LogUtilsTest {
 
     @Test
     public void shouldLogInfoMessages() {
+        when(logger.isInfoEnabled()).thenReturn(true);
         LogUtils.info(logger, LOG_MESSAGE);
         verify(logger).info(LOG_MESSAGE);
     }
 
     @Test
+    public void shouldNotLogWhenInfoIsDisabled() {
+        reset(logger);
+        when(logger.isInfoEnabled()).thenReturn(false);
+        LogUtils.info(logger, LOG_MESSAGE);
+        verify(logger, times(0)).info(LOG_MESSAGE);
+    }
+
+    @Test
     public void shouldLogErrorMessages() {
+        when(logger.isErrorEnabled()).thenReturn(true);
         LogUtils.error(logger, LOG_MESSAGE);
         verify(logger).error(LOG_MESSAGE);
     }
 
     @Test
+    public void shouldNotLogWhenErrorIsDisabled() {
+        reset(logger);
+        when(logger.isErrorEnabled()).thenReturn(false);
+        LogUtils.error(logger, LOG_MESSAGE);
+        verify(logger, times(0)).error(LOG_MESSAGE);
+    }
+
+    @Test
     public void shouldLogTimeTakenInfoMessages() {
+        when(logger.isInfoEnabled()).thenReturn(true);
         long startTime = System.currentTimeMillis();
 
         LogUtils.infoTimeTaken(logger, startTime, NUM_ITEMS, LOG_MESSAGE);

@@ -78,4 +78,60 @@ public class IdAndVersionBatchResultIteratorTest {
         assertFalse(iterator.hasNext());
         assertThrows("Call next should throw exception when no more data in iterator", NoSuchElementException.class, iterator::next);
     }
+
+    @Test
+    public void shouldIterateAcrossBatchesUsingHasNextAndNext(){
+        Iterator<IdAndVersion> firstBatchHits = new ArrayList<IdAndVersion>(){{
+            add(new StringIdAndVersion("1",1));
+            add(new StringIdAndVersion("2",2));
+        }}.iterator();
+
+        Iterator<IdAndVersion> nextBatchHits = new ArrayList<IdAndVersion>(){{
+            add(new StringIdAndVersion("3",3));
+        }}.iterator();
+
+        IdAndVersionBatchResultIterator iterator = new IdAndVersionBatchResultIterator(()-> nextBatchHits, firstBatchHits);
+
+        assertTrue(iterator.hasNext());
+        assertThat(iterator.next().getId(), is("1"));
+        assertTrue(iterator.hasNext());
+        assertThat(iterator.next().getId(), is("2"));
+        assertTrue(iterator.hasNext());
+        assertThat(iterator.next().getId(), is("3"));
+        assertFalse(iterator.hasNext());
+    }
+
+    @Test
+    public void shouldIterateAcrossMultipleBatches(){
+        Iterator<IdAndVersion> batch2 = new ArrayList<IdAndVersion>(){{
+            add(new StringIdAndVersion("3",3));
+        }}.iterator();
+        Iterator<IdAndVersion> batch3 = new ArrayList<IdAndVersion>(){{
+            add(new StringIdAndVersion("4",4));
+        }}.iterator();
+        Iterator<IdAndVersion> emptyBatch = new ArrayList<IdAndVersion>().iterator();
+
+        Iterator<Iterator<IdAndVersion>> batches = new ArrayList<Iterator<IdAndVersion>>(){{
+            add(batch2);
+            add(batch3);
+            add(emptyBatch);
+        }}.iterator();
+
+        Iterator<IdAndVersion> firstBatch = new ArrayList<IdAndVersion>(){{
+            add(new StringIdAndVersion("1",1));
+            add(new StringIdAndVersion("2",2));
+        }}.iterator();
+
+        IdAndVersionBatchResultIterator iterator = new IdAndVersionBatchResultIterator(()-> batches.hasNext() ? batches.next() : emptyBatch, firstBatch);
+
+        ArrayList<String> ids = new ArrayList<>();
+        while(iterator.hasNext()){
+            ids.add(iterator.next().getId());
+        }
+        assertThat(ids.size(), is(4));
+        assertThat(ids.get(0), is("1"));
+        assertThat(ids.get(1), is("2"));
+        assertThat(ids.get(2), is("3"));
+        assertThat(ids.get(3), is("4"));
+    }
 }
