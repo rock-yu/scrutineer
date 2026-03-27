@@ -10,13 +10,11 @@ public abstract class AbstractIdAndVersionStreamConnector implements IdAndVersio
     private static final int DEFAULT_SORT_MEM = 256 * 1024 * 1024;
     private final ConnectorConfig connectorConfig;
     private final IdAndVersionFactory idAndVersionFactory;
-    private final Sorter<IdAndVersion> sorter;
+    private Sorter<IdAndVersion> sorter;
 
     protected AbstractIdAndVersionStreamConnector(ConnectorConfig connectorConfig, IdAndVersionFactory idAndVersionFactory) {
         this.connectorConfig = connectorConfig;
         this.idAndVersionFactory = idAndVersionFactory;
-        SortConfig sortConfig = new SortConfig().withMaxMemoryUsage(DEFAULT_SORT_MEM);
-        sorter = new Sorter<>(sortConfig);
     }
     protected abstract Iterator<IdAndVersion> fetchFromSource();
 
@@ -28,15 +26,22 @@ public abstract class AbstractIdAndVersionStreamConnector implements IdAndVersio
         } else {
             return sort(idAndVersionIterator);
         }
-
     }
 
     private Iterator<IdAndVersion> sort(Iterator<IdAndVersion> idAndVersionIterator) {
         try {
-            return  sorter.sort(new IdAndVersionCollectionStreamDataReader(idAndVersionIterator));
+            return getSorter().sort(new IdAndVersionCollectionStreamDataReader(idAndVersionIterator));
         } catch (IOException e) {
             throw new IllegalStateException("Failed to sort IdAndVersionStream", e);
         }
+    }
+
+    private Sorter<IdAndVersion> getSorter() {
+        if (sorter == null) {
+            SortConfig sortConfig = new SortConfig().withMaxMemoryUsage(DEFAULT_SORT_MEM);
+            sorter = new Sorter<>(sortConfig);
+        }
+        return sorter;
     }
 
     protected IdAndVersionFactory getIdAndVersionFactory() {

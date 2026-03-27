@@ -17,21 +17,22 @@ public class IdAndVersionBatchResultIterator implements Iterator<IdAndVersion> {
 
     @Override
     public boolean hasNext() {
-        return batchIterator!=null && batchIterator.hasNext();
+        if (currentBatchHasNext()) {
+            return true;
+        }
+        batchIterator = batchProvider.get();
+        return currentBatchHasNext();
+    }
+
+    private boolean currentBatchHasNext() {
+        return batchIterator != null && batchIterator.hasNext();
     }
 
     @Override
     public IdAndVersion next() {
-        if(!hasNext()) {
-            getNextBatch();
-        }
-        if(batchIterator==null){
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
         return batchIterator.next();
-    }
-
-    private void getNextBatch() {
-        batchIterator = batchProvider.get();
     }
 }

@@ -20,18 +20,30 @@ public final class LogUtils {
     }
 
     public static void warn(Logger log, String message, Throwable throwable, Object... args) {
+        if (!log.isWarnEnabled()) {
+            return;
+        }
         log.warn(getFormattedMessage(message, args), throwable);
     }
 
     public static void error(Logger log, String message, Throwable throwable, Object... args) {
+        if (!log.isErrorEnabled()) {
+            return;
+        }
         log.error(getFormattedMessage(message, args), throwable);
     }
 
     public static void error(Logger log, String message, Object... args) {
+        if (!log.isErrorEnabled()) {
+            return;
+        }
         log.error(getFormattedMessage(message, args));
     }
 
     public static void info(Logger log, String message, Object... args) {
+        if (!log.isInfoEnabled()) {
+            return;
+        }
         log.info(getFormattedMessage(message, args));
     }
 
